@@ -478,8 +478,6 @@ static esp_err_t GET_system_info(httpd_req_t *req)
     }
 
     // Gather system info as before
-    char *ssid = nvs_config_get_string(NVS_CONFIG_WIFI_SSID, CONFIG_ESP_WIFI_SSID);
-    char *hostname = nvs_config_get_string(NVS_CONFIG_HOSTNAME, CONFIG_LWIP_LOCAL_HOSTNAME);
     char *stratumURL = nvs_config_get_string(NVS_CONFIG_STRATUM_URL, CONFIG_STRATUM_URL);
     char *stratumUser = nvs_config_get_string(NVS_CONFIG_STRATUM_USER, CONFIG_STRATUM_USER);
 
@@ -509,8 +507,8 @@ static esp_err_t GET_system_info(httpd_req_t *req)
     cJSON_AddNumberToObject(root, "coreVoltage", nvs_config_get_u16(NVS_CONFIG_ASIC_VOLTAGE, CONFIG_ASIC_VOLTAGE));
     cJSON_AddNumberToObject(root, "coreVoltageActual", (int) (board->getVout() * 1000.0f));
     cJSON_AddNumberToObject(root, "frequency", nvs_config_get_u16(NVS_CONFIG_ASIC_FREQ, CONFIG_ASIC_FREQUENCY));
-    cJSON_AddStringToObject(root, "ssid", ssid);
-    cJSON_AddStringToObject(root, "hostname", hostname);
+    cJSON_AddStringToObject(root, "ssid", SYSTEM_MODULE.getSsid());
+    cJSON_AddStringToObject(root, "hostname", SYSTEM_MODULE.getHostname());
     cJSON_AddStringToObject(root, "wifiStatus", SYSTEM_MODULE.getWifiStatus());
     cJSON_AddNumberToObject(root, "sharesAccepted", SYSTEM_MODULE.getSharesAccepted());
     cJSON_AddNumberToObject(root, "sharesRejected", SYSTEM_MODULE.getSharesRejected());
@@ -540,8 +538,6 @@ static esp_err_t GET_system_info(httpd_req_t *req)
         cJSON_AddItemToObject(root, "history", history);
     }
 
-    free(ssid);
-    free(hostname);
     free(stratumURL);
     free(stratumUser);
 
