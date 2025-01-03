@@ -52,6 +52,9 @@ void System::initSystem() {
     // Set the pool port
     m_poolPort = nvs_config_get_u16(NVS_CONFIG_STRATUM_PORT, CONFIG_STRATUM_PORT);
 
+    // copy the hostname to the global state
+    setHostname(nvs_config_get_string(NVS_CONFIG_HOSTNAME, HOSTNAME));
+
     // Initialize overheat flag
     m_overheated = false;
 

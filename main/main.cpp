@@ -42,13 +42,12 @@ static void setup_wifi()
     // pull the wifi credentials and hostname out of NVS
     char *wifi_ssid = nvs_config_get_string(NVS_CONFIG_WIFI_SSID, WIFI_SSID);
     char *wifi_pass = nvs_config_get_string(NVS_CONFIG_WIFI_PASS, WIFI_PASS);
-    char *hostname = nvs_config_get_string(NVS_CONFIG_HOSTNAME, HOSTNAME);
 
     // copy the wifi ssid to the global state
     SYSTEM_MODULE.setSsid(wifi_ssid);
 
     // init and connect to wifi
-    wifi_init(wifi_ssid, wifi_pass, hostname);
+    wifi_init(wifi_ssid, wifi_pass, SYSTEM_MODULE.getHostname());
     start_rest_server(NULL);
     EventBits_t result_bits = wifi_connect();
 
@@ -76,7 +75,6 @@ static void setup_wifi()
 
     free(wifi_ssid);
     free(wifi_pass);
-    free(hostname);
 }
 
 // Function to configure the Task Watchdog Timer (TWDT)

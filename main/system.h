@@ -42,6 +42,7 @@ class System {
     // Network and connection info
     char m_ssid[33];           // WiFi SSID (+1 for null terminator)
     char m_wifiStatus[20];     // WiFi status string
+    char m_hostname[65];       // Hostname (+1 for null terminator)
     char *m_poolUrl;           // URL of the mining pool
     uint16_t m_poolPort;       // Port number of the mining pool
     uint32_t m_poolDifficulty; // Current pool difficulty
@@ -173,6 +174,10 @@ class System {
     {
         return m_ssid;
     }
+    const char *getHostname() const
+    {
+        return m_hostname;
+    }
     void setWifiStatus(const char *wifiStatus)
     {
         strncpy(m_wifiStatus, wifiStatus, sizeof(m_wifiStatus));
@@ -180,6 +185,10 @@ class System {
     void setSsid(const char *ssid)
     {
         strncpy(m_ssid, ssid, sizeof(m_ssid));
+    }
+    void setHostname(const char *hostname)
+    {
+        strncpy(m_hostname, hostname, sizeof(m_hostname));
     }
 
     // Block status and clock sync getters
