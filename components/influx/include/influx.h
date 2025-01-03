@@ -45,7 +45,7 @@ typedef struct
 } Influx;
 
 Influx *influx_init(const char *host, int port, const char *token, const char *bucket, const char *org, const char *prefix);
-void influx_write(Influx *influx);
+void influx_write(Influx *influx, const char* tag_hostname);
 bool load_last_values(Influx *influx);
 bool bucket_exists(Influx *influx);
 bool influx_ping(Influx *influx);

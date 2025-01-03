@@ -170,7 +170,7 @@ void influx_task(void *pvParameters)
     while (1) {
         pthread_mutex_lock(&influxdb->lock);
         influx_task_fetch_from_system_module(module);
-        influx_write(influxdb);
+        influx_write(influxdb, module->getHostname());
         pthread_mutex_unlock(&influxdb->lock);
         vTaskDelay(15000 / portTICK_PERIOD_MS);
     }
