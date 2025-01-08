@@ -261,8 +261,9 @@ void influx_write(Influx *influx, const char* tag_hostname)
              "accepted=%d,not_accepted=%d,total_uptime=%d,blocks_found=%d,"
              "pwr_vin=%f,pwr_iin=%f,pwr_pin=%f,pwr_vout=%f,pwr_iout=%f,pwr_pout=%f,"
              "total_blocks_found=%d,duplicate_hashes=%d %lld",
+             influx->prefix,
              tag_hostname,
-             influx->prefix, influx->stats.temp, influx->stats.temp2, influx->stats.hashing_speed, influx->stats.invalid_shares,
+             influx->stats.temp, influx->stats.temp2, influx->stats.hashing_speed, influx->stats.invalid_shares,
              influx->stats.valid_shares, influx->stats.uptime, influx->stats.best_difficulty, influx->stats.total_best_difficulty,
              influx->stats.pool_errors, influx->stats.accepted, influx->stats.not_accepted, influx->stats.total_uptime,
              influx->stats.blocks_found, influx->stats.pwr_vin, influx->stats.pwr_iin, influx->stats.pwr_pin,
